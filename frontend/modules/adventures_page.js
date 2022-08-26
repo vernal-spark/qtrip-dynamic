@@ -5,6 +5,7 @@ import config from "../conf/index.js";
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it
+  return search.split("=")[1];
 
 }
 
@@ -12,13 +13,57 @@ function getCityFromURL(search) {
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
-
+  try{
+    const res=await fetch(config.backendEndpoint+`/adventures/?city=${city}`);
+    const data=await res.json();
+    console.log(data)
+    return data;
+  }catch(err){
+    return null;
+  }
 }
 
 //Implementation of DOM manipulation to add adventures for the given city from list of adventures
 function addAdventureToDOM(adventures) {
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+  adventures.forEach(element => {
+    let ele=document.createElement("div");
+  ele.setAttribute("class","col-12 col-sm-6 col-lg-3 mb-4");
+  // ele.innerHTML+=`
+  // <a href="pages/adventures/?city=${element.id}"id="${element.id}">
+  //   <div class="tile">
+  //     <div class="tile-text text-center">
+  //       <h4>${element.city}</h4>
+  //       <h5>${element.description}</h5>
+  //     </div>
+  //     <img src="${element.image}" />
+  //   </div>
+  // </a>`;
+  ele.innerHTML+=`
+  <a href="detail/?adventure=${element.id}"id="${element.id}">
+              <div class="card activity-card">
+              <div class="category-banner">${element.category}</div>
+                <img
+                  class="card-img-top"
+                  src="${element.image}"
+                />
+
+                <div class="card-body d-flex flex-column">
+                <div class="d-flex justify-content-between">
+                  <h5 class="card-title">${element.name}</h5>
+                  <h6 class="card-text">${element.costPerHead}${element.currency}</h6>
+                </div> 
+                <div class="d-flex justify-content-between">
+                  <h5 class="card-title">Duration</h5>
+                  <h6 class="card-text">${element.duration}Hours</h6>
+                </div>  
+                </div>
+                
+              </div>
+            </a>`;
+  document.getElementById("data").appendChild(ele);
+  });
 
 }
 

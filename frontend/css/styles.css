@@ -123,7 +123,6 @@ footer {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
 }
 .activity-card img {
   width: 100%;
@@ -192,7 +191,7 @@ footer {
   right: 0;
   z-index: 1;
   margin-top: 16px;
-  margin-right: 8px;
+  /* margin-right: 8px; */
   display: flex;
   justify-content: center;
   align-items: center;
