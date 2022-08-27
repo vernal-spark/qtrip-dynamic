@@ -79,8 +79,9 @@ function filterByDuration(list, low, high) {
 function filterByCategory(list, categoryList) {
   // TODO: MODULE_FILTERS
   // 1. Filter adventures based on their Category and return filtered list
-   console.log(categoryList.category)
-  return list.filter(element=>categoryList.category.includes(element.category));
+   
+   let l=list.filter(element=>categoryList.includes(element.category));
+   return l;
 }
 
 // filters object looks like this filters = { duration: "", category: [] };
@@ -108,13 +109,13 @@ function filterFunction(list, filters) {
     return list;
   }
   else if(filters.duration == "" && filters.category.length>0){
-    return filterByCategory(list, filters);
+    return filterByCategory(list, filters.category);
   }
   else if(filters.duration !== "" && filters.category.length==0){
     return filterByDuration(list,low,high)
   }
   else{
-    let x=filterByCategory(list,filters)
+    let x=filterByCategory(list,filters.category)
     return filterByDuration(x,low,high)
   }
   
