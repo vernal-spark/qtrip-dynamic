@@ -42,7 +42,7 @@ function addAdventureToDOM(adventures) {
   // </a>`;
   ele.innerHTML+=`
   <a href="detail/?adventure=${element.id}"id="${element.id}">
-              <div class="card activity-card">
+              <div class="card activity-card" style="position:relative;margin-right:5px">
               <div class="category-banner">${element.category}</div>
                 <img
                   class="card-img-top"

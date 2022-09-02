@@ -128,6 +128,7 @@ footer {
   width: 100%;
   height: 100%;
   /* border-radius: 8px; */
+  /* object-fit: cover; */
   -webkit-transition: 0.2s all;
   /* -webkit-filter: brightness(70%); */
 }
@@ -149,6 +150,7 @@ footer {
   height: 500px;
   width: 100%;
   cursor: pointer;
+  object-fit:cover;
   -webkit-transition: 0.2s all;
   border-radius: 2px;
 }
@@ -181,9 +183,9 @@ footer {
   /* height: 50px; */
   padding: 5px 10px;
   box-shadow: 2px 1px 10px 1px rgba(0, 0, 0, 0.3);
-  /*
-  box-shadow: 0px 9.4px 20.4px rgba(0, 0, 0, 0.13),
+  /* box-shadow: 0px 9.4px 20.4px rgba(0, 0, 0, 0.13),
     0px 9.2px 20.6px rgba(0, 0, 0, 0.1); */
+  
   min-width: 50%;
   color: #fff;
   background: rgb(255, 145, 0);
@@ -191,7 +193,7 @@ footer {
   right: 0;
   z-index: 1;
   margin-top: 16px;
-  /* margin-right: 8px; */
+  margin-right: -8px;
   display: flex;
   justify-content: center;
   align-items: center;

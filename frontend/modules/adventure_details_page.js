@@ -4,25 +4,41 @@ import config from "../conf/index.js";
 function getAdventureIdFromURL(search) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Get the Adventure Id from the URL
-
+  const urlsearch=new URLSearchParams(search);
+  const adventure=urlsearch.get("adventure")
+  console.log(adventure);
+  return adventure;
 
   // Place holder for functionality to work in the Stubs
-  return null;
 }
 //Implementation of fetch call with a paramterized input based on adventure ID
 async function fetchAdventureDetails(adventureId) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Fetch the details of the adventure by making an API call
-
+    try{
+      const res=await fetch(config.backendEndpoint+`/adventures/detail/?adventure=${adventureId}`);
+      const data=await res.json();
+      console.log(data)
+      return data;
+    }catch(err){
+      return null;
+    }
 
   // Place holder for functionality to work in the Stubs
-  return null;
 }
 
 //Implementation of DOM manipulation to add adventure details to DOM
 function addAdventureDetailsToDOM(adventure) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Add the details of the adventure to the HTML DOM
+  let name=document.getElementById("adventure-name");
+  name.innerHTML=adventure.name;
+  document.getElementById("adventure-subtitle").innerHTML=adventure.subtitle;
+  adventure.images.forEach(element => {
+    document.getElementById("photo-gallery").innerHTML+=`
+   <img src="${element}" class="activity-card-image"></img>`
+  });
+  document.getElementById("adventure-content").innerHTML=adventure.content;
 
 }
 
@@ -30,6 +46,31 @@ function addAdventureDetailsToDOM(adventure) {
 function addBootstrapPhotoGallery(images) {
   // TODO: MODULE_ADVENTURE_DETAILS
   // 1. Add the bootstrap carousel to show the Adventure images
+  let x=`<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner" id="car">
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>`;
+document.getElementById("photo-gallery").innerHTML=x;
+images.forEach((element,index)=>{
+  if(index==0){
+    document.getElementById("car").innerHTML+=`<div class="carousel-item active">
+    <img src="${element}" class="d-block w-100 activity-card-image" alt="...">
+  </div>`
+  }
+  else{
+    document.getElementById("car").innerHTML+=`<div class="carousel-item ">
+    <img src="${element}" class="d-block w-100 activity-card-image" alt="...">
+  </div>`
+  }
+})
 
 }
 
