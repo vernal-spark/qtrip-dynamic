@@ -4,10 +4,16 @@ import config from "../conf/index.js";
 async function fetchReservations() {
   // TODO: MODULE_RESERVATIONS
   // 1. Fetch Reservations by invoking the REST API and return them
-
+  try{
+    let res=await fetch(config.backendEndpoint+"/reservations/");
+  let data=await res.json();
+  return data;
+  }catch(err){
+    console.log(err)
+    return null;
+  }
 
   // Place holder for functionality to work in the Stubs
-  return null;
 }
 
 //Function to add reservations to the table. Also; in case of no reservations, display the no-reservation-banner, else hide it.
@@ -25,6 +31,45 @@ function addReservationToTable(reservations) {
     1. The date of adventure booking should appear in the format D/MM/YYYY (en-IN format) Example:  4/11/2020 denotes 4th November, 2020
     2. The booking time should appear in a format like 4 November 2020, 9:32:31 pm
   */
+ if(reservations.length>0){
+  document.getElementById("reservation-table-parent").style.display="block";
+  document.getElementById("no-reservation-banner").style.display="none";
+  
+  
+ }
+ else{
+  document.getElementById("reservation-table-parent").style.display="none";
+  document.getElementById("no-reservation-banner").style.display="block";
+ }
+ reservations.map(element=>{
+  let tr=document.createElement("tr");
+  tr.innerHTML+=`
+      <th scope="row">${element.id}</th>
+      <td>${element.name}</td>
+      <td>${element.adventureName}</td>
+      <td>${element.person}</td>
+      <td>${new Date(element.date).toLocaleDateString("en-IN",{
+      year:"numeric",
+      day:"numeric",
+      month:"numeric"})}</td>
+      <td>${element.price}</td>
+      <td>${new Date(element.time).toLocaleDateString("en-IN",{
+        year:"numeric",
+        day:"numeric",
+        month:"long",
+        hour:"numeric",
+        minute:"numeric",
+        second:"numeric",
+        hour12:true}).replace(' at',',')}</td>
+      <td><div class="reservation-visit-button" id=${element.id}>
+      <a href="../detail/?adventure=${element.adventure}">Visit Adventure</a>
+      </div>
+      </td>
+  </tr>`
+  document.getElementById("reservation-table").appendChild(tr);
+})
+
+
 
 }
 
